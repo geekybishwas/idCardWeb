@@ -4,15 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class IdCardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $id_card_details=
-        return view('admin.dashboard');
+        // return view('admin.dashboard');
     }
 
     /**
@@ -20,7 +19,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('idCardd.create');
     }
 
     /**

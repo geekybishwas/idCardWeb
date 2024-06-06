@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\IdCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -8,4 +9,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/admin',[AdminController::class,'dashboard'])->name('admin.dashboard');
+Route::resource('/admin',AdminController::class);
+
+Route::resource('/id-card',IdCardController::class);
