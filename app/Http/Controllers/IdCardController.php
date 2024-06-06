@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IdCard;
 use Illuminate\Http\Request;
 
 class IdCardController extends Controller
@@ -19,7 +20,9 @@ class IdCardController extends Controller
      */
     public function create()
     {
-        return view('idCardd.create');
+        //Create a new empty instance
+        $userId=new IdCard();
+        return view('IdCard.create',compact('userId'));
     }
 
     /**
@@ -27,7 +30,38 @@ class IdCardController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        return $request->all();
+        $data=$request->validate([
+            'full_name'=>'required|string',
+            'email'=>'required|string|email|unique:card_details,email',
+            'address'=>'required|string',
+            'dob'=>'required|date',
+            'expiry_date'=>'required|date',
+            'role'=>'required|string',
+            'photo'=>'required|image|mimes:jpeg,png,jpg|max:800000'
+        ]);
+        
+        // dd($data);
+        $imagePath=$request->file('photo');
+
+        // Getting the extension of image like jpg,jpeg
+        $extension=$imagePath->getClientOriginalExtension();
+
+        // Getting image name and concat the extension
+        $imageName=basename('imagePath') ."." . $extension;
+
+        $path='images/photos/';
+
+        // Moving the image to the required path
+        $imagePath->move($path,$imageName);
+
+        // Storing the path of the image in db
+        $data['photo']=$path;
+
+        $userId=IdCard::create($data);
+
+        return redirect()->route('id-card.index');
     }
 
     /**
