@@ -8,18 +8,23 @@
     </div>
 @endif
 <div class="container mt-5">
-    
-    {{-- Back button --}}
-    <a href="{{ route('idCard.create') }}" class="btn btn-primary mb-4">
-        <i class="fas fa-plus"></i>
-    </a>
-    
-    {{-- Search Bar --}}
-    <form class="form-inline my-2 my-lg-0" action={{route('idCard.index')}} method="GET">
-        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{$search}}">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-    </form>
 
+    <div class="d-flex justify-content-between align-items-center">
+        {{-- Back button --}}
+        <a href="{{ route('idCard.create') }}" class="btn btn-primary mb-4">
+            <i class="fas fa-plus"></i>
+        </a>
+    
+        <form class="form-inline my-2 my-lg-0" action="{{ route('idCard.index') }}" method="GET">
+            <div class="input-group">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{ $search }}">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
     {{-- Container --}}
     <div class="row">
         @foreach ($idCards as $idCard)
