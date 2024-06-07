@@ -12,10 +12,22 @@ class IdCardController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $idCards=IdCard::all();
-        return view('admin.dashboard',compact('idCards'));
+        // dd($request->all());
+        // Using null operator
+        $search=$request->input('search') ?? "";
+        
+        // If search is found it will get the search idCards
+        if($search!=""){
+            $idCards=IdCard::where('full_name','LIKE',"$search%")->get();
+            // dd($search);
+        }
+        else
+        {
+            $idCards=IdCard::all();
+        }
+        return view('admin.dashboard',compact('idCards','search'));
     }
 
     /**
