@@ -18,7 +18,7 @@ class IdCard extends Model
         'address',
         'dob',
         'expiry_date',
-        'role',
+        'position',
         'photo'
     ];
 

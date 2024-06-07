@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('address');
             $table->date('dob');
             $table->date('expiry_date');
-            $table->string('role');
+            $table->string('position');
             $table->text('photo');
             $table->timestamps();
         });

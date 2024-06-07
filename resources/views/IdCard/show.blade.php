@@ -14,7 +14,7 @@
                 <strong>Address:</strong> {{ $idCard->address }}<br>
                 <strong>Date of Birth:</strong> {{ $idCard->dob }}<br>
                 <strong>Card Expiry Date:</strong> {{ $idCard->expiry_date }}<br>
-                <strong>Role:</strong> {{ $idCard->role }}
+                <strong>Position:</strong> {{ $idCard->position }}
             </p>
             {{-- Edit button --}}
             <a href="{{ route('idCard.edit', ['idCard' => $idCard->id]) }}" class="btn btn-primary"><i class="fas fa-edit me-2"></i></a>

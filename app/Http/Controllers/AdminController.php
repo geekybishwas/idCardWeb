@@ -12,7 +12,10 @@ class AdminController extends Controller
     public function index()
     {
         // $id_card_details=
-        return view('admin.dashboard');
+        // Assgning this two fields empty at first,coz at first there is no idCards and search input
+        $search="";
+        $idCards=[];
+        return view('admin.dashboard',compact('search','idCards'));
     }
 
     /**

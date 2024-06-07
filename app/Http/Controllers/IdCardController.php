@@ -36,8 +36,8 @@ class IdCardController extends Controller
     public function create()
     {
         //Create a new empty instance
-        $userId=new IdCard();
-        return view('IdCard.create',compact('userId'));
+        $idCard=new IdCard();
+        return view('IdCard.create',compact('idCard'));
     }
 
     /**
@@ -54,7 +54,7 @@ class IdCardController extends Controller
             'address'=>'required|string',
             'dob'=>'required|date',
             'expiry_date'=>'required|date',
-            'role'=>'required|string',
+            'position'=>'required|string',
             'photo'=>'required|image|mimes:jpeg,png,jpg|max:800000'
         ]);
         
@@ -100,9 +100,9 @@ class IdCardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(IdCard $idCard)
     {
-        //
+        return view('IdCard.create',compact('idCard'));
     }
 
     /**
@@ -117,7 +117,7 @@ class IdCardController extends Controller
             'address'=>'required|string',
             'dob'=>'required|date',
             'expiry_date'=>'required|date',
-            'role'=>'required|string',
+            'position'=>'required|string',
             'photo'=>'required|image|mimes:jpeg,png,jpg|max:800000'
         ]);
 
