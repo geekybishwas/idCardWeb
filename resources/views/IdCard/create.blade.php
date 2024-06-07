@@ -3,7 +3,8 @@
 @section('content') 
     <div class="container mt-5">
         <h2>Add ID Card Details</h2>
-        <form action="{{route('id-card.store')}}" method="POST" enctype="multipart/form-data">
+        <form action="{{route('idCard.store')}}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
                 <label for="photo">Upload Photo</label>
                 <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*">

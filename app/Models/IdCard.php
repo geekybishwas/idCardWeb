@@ -9,6 +9,8 @@ class IdCard extends Model
 {
     use HasFactory;
 
+    protected $table='card_details';
+
     // Make this input fillable
     protected $fillable=[
         'full_name',
@@ -16,6 +18,7 @@ class IdCard extends Model
         'address',
         'dob',
         'expiry_date',
+        'role',
         'photo'
     ];
 

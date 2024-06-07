@@ -11,4 +11,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/admin',AdminController::class);
 
-Route::resource('/id-card',IdCardController::class);
+Route::resource('/idCard',IdCardController::class);
