@@ -42,9 +42,15 @@
     line-height: 1.5;
 }
 .small-image {
-    width: 100px; 
-    height: 100px; 
+    width: 200px; 
+    height: 200px; 
     object-fit: cover;
     margin: 10px auto; 
     display: block; 
 }
+
+.card-link {
+    text-decoration: none; 
+    color: inherit; 
+}
+
