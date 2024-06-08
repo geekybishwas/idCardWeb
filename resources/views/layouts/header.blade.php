@@ -11,6 +11,8 @@
 
     {{-- Link css --}}
     <link rel="stylesheet" href="{{asset('frontend/css/style.css')}}">
+
+    {{-- <script src="{{ asset('frontend/js/script.js') }}" defer></script> --}}
 </head>
 
 <body>

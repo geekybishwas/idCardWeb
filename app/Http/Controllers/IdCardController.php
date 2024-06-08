@@ -25,7 +25,8 @@ class IdCardController extends Controller
         }
         else
         {
-            $idCards=IdCard::all();
+            // Accessing the id card details in desc order by created_at
+            $idCards=IdCard::orderBy('created_at','desc')->get();
         }
         return view('admin.dashboard',compact('idCards','search'));
     }
@@ -153,8 +154,9 @@ class IdCardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(IdCard $idCard)
     {
-        //
+        $idCard->delete();
+        return redirect()->route('idCard.index');
     }
 }
