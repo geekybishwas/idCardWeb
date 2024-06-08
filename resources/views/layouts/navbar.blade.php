@@ -6,15 +6,29 @@
   
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">DashBoard <span class="sr-only"></span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Tables</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Logout</a>
-        </li>
+        {{-- If admin is logged in  --}}
+        @if(Auth::check())
+          <li class="nav-item active">
+            <a class="nav-link" href="#">{{Auth::user()}} <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tables</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Logout</a>
+          </li>
+          {{-- If admin is not logged in  --}}
+        @else
+          <li class="nav-item active">
+            <a class="nav-link" href="#">{{Auth::user()}} <span class="sr-only"></span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Tables</a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">Logout</a>
+          </li>
+        @endif
         
       </ul>
     </div>
