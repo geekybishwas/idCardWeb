@@ -57,7 +57,28 @@
 footer {
     position: absolute;
     bottom: 0;
-    width: 100%; /* Expand the footer to full width */
-    text-align: center; /* Center align text */
+    width: 100%; 
+    text-align: center; 
   }
+
+.center-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #e9ecef;
+}
+.form-container {
+    max-width: 400px;
+    padding: 2rem;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* .form-error {
+    color: #dc3545;
+    font-size: 0.875em; 
+    margin-top: 0.25rem; 
+} */
+
   

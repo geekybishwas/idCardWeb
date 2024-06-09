@@ -15,18 +15,15 @@
             <a class="nav-link" href="#">Tables</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
+              <a class="nav-link" href="{{route('admin.logout')}}">Logout</a>
           </li>
           {{-- If admin is not logged in  --}}
         @else
           <li class="nav-item active">
-            <a class="nav-link" href="#">{{Auth::user()}} <span class="sr-only"></span></a>
+            <a class="nav-link" href="#">DashBoard<span class="sr-only"></span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Tables</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
           </li>
         @endif
         

@@ -5,7 +5,7 @@ use App\Http\Controllers\IdCardController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('admin.dashboard');
+    return view('admin.register');
 });
 
 
@@ -25,3 +25,11 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::put('/idCard/{id}', [IdCardController::class, 'update'])->name('idCard.update'); 
     Route::delete('/idCard/{id}', [IdCardController::class, 'destroy'])->name('idCard.destroy'); 
 });
+
+
+// Login ,Register
+Route::get('/login',[AdminController::class,'loginForm'])->name('admin.login.form');
+Route::post('/login',[AdminController::class,'loggedin'])->name('admin.loggedin');
+Route::get('/register',[AdminController::class,'registerForm'])->name('admin.register.form');
+Route::post('/register',[AdminController::class,'register'])->name('admin.register');
+Route::get('/logout',[AdminController::class,'logout'])->name('admin.logout');

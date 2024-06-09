@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -18,51 +22,54 @@ class AdminController extends Controller
         return view('admin.dashboard',compact('search','idCards'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+    public function loginForm(){
+        return view('admin.login');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+    public function loggedin(Request $request){
+        $loginFields = $request->validate([
+            'email' => ['required','email'],
+            'password' => 'required',
+        ]);
+
+        $admin = User::where('email','=',$request->email)->first();
+        if($admin){
+            if(Hash::check($request->password, $admin->password)){
+                if (Auth::attempt($loginFields)) {
+                    return redirect()->intended('/');
+                }
+            }
+            else{
+                return back()->with('wrongPw',"Wrong admin password... Try again.");
+            }
+        }
+        else{
+            return back()->with('noUser','No such account exists. Signup first...');
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+    public function registerForm(){
+        return view('admin.register');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function registered(Request $request){
+        dd($request->all());
+        $validation=$request->validate([
+            'username'=>['required','min:6', Rule::unique('users','username')],
+            'email'=>['required','email', Rule::unique('users','email')],
+            'password'=>'required|min:8',
+            // Default admin role when register
+            'role'=>'admin'
+        ]);
+
+        $validation['password']=bcrypt($validation['password']);
+
+        // Add users
+        $teacher=User::create($validation);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
+    public function logout(){
+
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
 }
