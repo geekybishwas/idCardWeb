@@ -10,7 +10,7 @@ class PdfController extends Controller
 {
     public function generatePdf($id){
         $idCard=IdCard::findOrFail($id);
-        $pdf=Pdf::loadView('id_card.print',compact('idCard'));
-        return $pdf->download('id_card.pdf');
+        $pdf=Pdf::loadView('IdCard.print',compact('idCard'));
+        return $pdf->download($idCard->name .'.pdf');
     }
 }

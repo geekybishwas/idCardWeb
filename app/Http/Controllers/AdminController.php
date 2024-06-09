@@ -58,12 +58,14 @@ class AdminController extends Controller
             'username'=>['required','min:6', Rule::unique('users','username')],
             'email'=>['required','email', Rule::unique('users','email')],
             'password'=>'required',
-            // Default admin role when register
-            'role'=>'admin'
         ]);
 
+        
         $validation['password']=bcrypt($validation['password']);
-
+        // Default admin role when register
+        $validation['role']='admin';
+        
+        // dd($validation);
         // Add users
         $user=User::create($validation);
 

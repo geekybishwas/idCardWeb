@@ -16,3 +16,4 @@
 </head>
 
 <body>
+    <script src="{{ asset('frontend/js/custome.js') }}"></script>

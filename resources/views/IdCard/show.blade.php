@@ -24,6 +24,7 @@
                 @method('DELETE')
                 <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt me-2"></i></button>
             </form>
+            <a href="{{route('print.pdf',['id'=>$idCard->id])}}" class="btn btn-primary"><i class="fas fa-print"></i>Print</a>
         </div>
     </div>
 </div>

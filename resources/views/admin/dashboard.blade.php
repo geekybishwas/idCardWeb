@@ -47,17 +47,17 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ $idCard->full_name }}</h5>
                             <p class="card-text">
-                                        <strong>Email:</strong> {{ $idCard->email }}<br>
-                                        <strong>Address:</strong> {{ $idCard->address }}<br>
-                                        <strong>Date of Birth:</strong> {{ $idCard->dob }}<br>
-                                        <strong>Card Expiry Date:</strong> {{ $idCard->expiry_date }}<br>
-                                        <strong>Role:</strong> {{ $idCard->role }}
-                                    </p>
-                                </div>
-                            </div>
-                        </a>
-                </div>
-                @endforeach
+                                <strong>Email:</strong> {{ $idCard->email }}<br>
+                                <strong>Address:</strong> {{ $idCard->address }}<br>
+                                <strong>Date of Birth:</strong> {{ $idCard->dob }}<br>
+                                <strong>Card Expiry Date:</strong> {{ $idCard->expiry_date }}<br>
+                                <strong>Position:</strong> {{ $idCard->position }}
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            @endforeach
         </div>
     </div>
 @endif

@@ -22,10 +22,11 @@ Route::get('/idCard/create', [IdCardController::class, 'create'])->name('idCard.
 // Admin middleware
 Route::middleware(['auth','role:admin'])->group(function(){
     Route::post('/idCard', [IdCardController::class, 'store'])->name('idCard.store'); 
-    Route::get('/idCard/{id}', [IdCardController::class, 'show'])->name('idCard.show'); 
-    Route::get('/idCard/{id}/edit', [IdCardController::class, 'edit'])->name('idCard.edit');
+    Route::get('/idCard/{idCard}', [IdCardController::class, 'show'])->name('idCard.show'); 
+    Route::get('/idCard/{idCard}/edit', [IdCardController::class, 'edit'])->name('idCard.edit');
     Route::put('/idCard/{id}', [IdCardController::class, 'update'])->name('idCard.update'); 
-    Route::delete('/idCard/{id}', [IdCardController::class, 'destroy'])->name('idCard.destroy'); 
+    Route::delete('/idCard/{idCard}', [IdCardController::class, 'destroy'])->name('idCard.destroy'); 
+    Route::get('/generate-pdf/{id}',[PdfController::class,'generatePdf'])->name('print.pdf');
 });
 
 
@@ -34,6 +35,4 @@ Route::get('/login',[AdminController::class,'loginForm'])->name('admin.login.for
 Route::post('/login',[AdminController::class,'loggedin'])->name('admin.loggedin');
 Route::get('/register',[AdminController::class,'registerForm'])->name('admin.register.form');
 Route::post('/register',[AdminController::class,'register'])->name('admin.register');
-Route::get('/logout',[AdminController::class,'logout'])->name('admin.logout');
-
-Route::get('/generate-pdf',[PdfController::class,'generatePdf'])->name('pdf');
+Route::post('/logout',[AdminController::class,'logout'])->name('admin.logout');

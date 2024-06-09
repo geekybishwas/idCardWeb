@@ -9,3 +9,7 @@
         }
     });
 
+    function confirmAddIdCard() {
+        return confirm("You need to login first");
+      }
+
