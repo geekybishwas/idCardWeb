@@ -52,12 +52,12 @@ class AdminController extends Controller
         return view('admin.register');
     }
 
-    public function registered(Request $request){
-        dd($request->all());
+    public function register(Request $request){
+        // dd($request->all());
         $validation=$request->validate([
             'username'=>['required','min:6', Rule::unique('users','username')],
             'email'=>['required','email', Rule::unique('users','email')],
-            'password'=>'required|min:8',
+            'password'=>'required',
             // Default admin role when register
             'role'=>'admin'
         ]);
@@ -65,11 +65,21 @@ class AdminController extends Controller
         $validation['password']=bcrypt($validation['password']);
 
         // Add users
-        $teacher=User::create($validation);
+        $user=User::create($validation);
+
+        Auth::login($user);
+
+        return redirect()->route('admin.index')->with('message','Successfuly logged in');
+
+
     }
 
-    public function logout(){
+    public function logout(Request $request){
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('admin.dashboard')->with('message','Logged out successfully');
 
-    }
+    }   
 
 }

@@ -23,22 +23,22 @@
             @csrf
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>
-                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username">
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" value="{{old('username')}}">
                 @error('username')
                     <span class="form-error">{{$message}} </span>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" value="{{old('email')}}">
                 @error('email')
                     <span class="form-error">{{$message}} </span>
                 @enderror
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" password="password" placeholder="Enter password">
-                @error('email')
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+                @error('password')
                     <span class="form-error">{{$message}} </span>
                 @enderror
             </div>

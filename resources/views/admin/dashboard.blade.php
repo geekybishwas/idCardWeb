@@ -2,14 +2,16 @@
 
 @section('content')
 @if(empty($idCards))
-    <div class="container center-content">
-        <div class="text-center mb-4">
-        <h1>Welcome Admin</h1>
-        <a href="{{ route('idCard.create') }}" class="btn btn-primary mt-4">
-            <i class="fas fa-plus me-2"></i>
-        </a>
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-12 text-center">
+            @if(Auth::check())
+                <h1 class="mb-4">Welcome Admin</h1>
+            @endif
+            <a href="{{ route('idCard.create') }}" class="btn btn-primary"><i class="fas fa-plus">Add ID Cards</i></a>
         </div>
     </div>
+</div>
 @else
     {{-- @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -20,7 +22,7 @@
     <div class="container mt-5">
         
         <div class="d-flex justify-content-between align-items-center">
-            {{-- Back button --}}
+            {{-- <h1 class="mb-4">Welcome Admin</h1> --}}
             <a href="{{ route('idCard.create') }}" class="btn btn-primary mb-4">
                 <i class="fas fa-plus"></i>
             </a>

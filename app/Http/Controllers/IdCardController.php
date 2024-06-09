@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\IdCard;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class IdCardController extends Controller
 {
@@ -36,9 +37,17 @@ class IdCardController extends Controller
      */
     public function create()
     {
-        //Create a new empty instance
-        $idCard=new IdCard();
-        return view('IdCard.create',compact('idCard'));
+        // dd("s");
+        // Checking the admin logged in or not
+        if(Auth::user())
+        {
+            //Create a new empty instance
+            $idCard=new IdCard();
+            return view('IdCard.create',compact('idCard'));
+        }
+        else{
+            return redirect()->route('admin.register.form');
+        }
     }
 
     /**
