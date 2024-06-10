@@ -22,77 +22,8 @@ class AdminController extends Controller
         $search="";
         $idCards=IdCard::orderBy('created_at','desc')->get();
         // $idCards=[];
+        // dd('as:' . $idCards);
         return view('admin.dashboard',compact('search','idCards'));
-    }
-
-    public function loginForm(){
-        return view('admin.login');
-    }
-
-    public function loggedin(Request $request){
-        $loginFields = $request->validate([
-            'email' => ['required','email'],
-            'password' => 'required',
-        ]);
-
-        // Default admin account
-        if($loginFields['email']=='admin@gmail.com' && $loginFields['password']='admin'){
-            return redirect()->route('admin.index');
-        }
-        else
-        { 
-            $user = User::where('email','=',$request->email)->first();
-            // dd($admin);
-            if($user){
-                if(Hash::check($request->password, $user->password)){
-                    if (Auth::attempt($loginFields)) {
-                        return redirect()->route('user.index');
-                    }
-                }
-                else{
-                    return back()->with('wrongPw',"Wrong user password... Try again.");
-                }
-            }
-            else{
-                return back()->with('noUser','No such account exists. Signup first...');
-            }
-        }
-    }
-        
-    public function registerForm(){
-    return view('admin.register');
-    }
-
-    public function register(Request $request){
-        // dd($request->all());
-        $validation=$request->validate([
-            'username'=>['required','min:6', Rule::unique('users','username')],
-            'email'=>['required','email', Rule::unique('users','email')],
-            'password'=>'required',
-        ]);
-
-        
-        $validation['password']=bcrypt($validation['password']);
-        // Default admin role when register
-        $validation['role']='admin';
-        
-        // dd($validation);
-        // Add users
-        $user=User::create($validation);
-
-        Auth::login($user);
-
-        return redirect()->route('admin.index')->with('message','Successfuly logged in');
-
-
-    }
-
-    public function logout(Request $request){
-        Auth::logout();
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect()->route('admin.login.form')->with('message','Logged out successfully');
-
-    }   
+    }  
 
 }

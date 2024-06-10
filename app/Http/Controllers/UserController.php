@@ -4,9 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Config;
 
 class UserController extends Controller
 {
@@ -17,7 +18,7 @@ class UserController extends Controller
             $email=Auth::user()->email;
             // dd($email);
 
-            return view('user.dashboard',compact('email'));
+            return view('users.index',compact('email'));
         }
     }
     public function loginForm(){
@@ -29,17 +30,24 @@ class UserController extends Controller
             'email' => ['required','email'],
             'password' => 'required',
         ]);
+        $adminEmail='admin@gmail.com';
+        $adminPassword='admin';
 
-        // Default admin account creation during login 
-        if($loginFields['email']=='admin@gmail.com' && $loginFields['password']='admin'){
+        // Check if the admin user alredy inthe db or not
+        $admin=User::where('email',$adminEmail)->first();
+        
+        // dd($adminEmail);
+        // If the admin user does not exist ,Default admin account creation during login 
+        if(!$admin && $loginFields['email']==$adminEmail && $loginFields['password']=$adminPassword){
             $admin=User::create([
                 'username'=>'admin',
-                'email'=>$loginFields['email'],
-                'password'=>$loginFields['password'],
+                'email'=>$adminEmail,
+                'password'=>Hash::make($adminPassword),
                 'role'=>'admin'
             ]);
 
             Auth::login($admin);
+
             return redirect()->route('admin.index')->with('success','Admin logged in successfully');
         }
         else
@@ -49,7 +57,12 @@ class UserController extends Controller
             if($user){
                 if(Hash::check($request->password, $user->password)){
                     if (Auth::attempt($loginFields)) {
-                        return redirect()->route('user.index');
+                        if($user->role=='admin'){
+                            return redirect()->route('admin.index');
+                        }
+                        else{
+                            return redirect()->route('user.index');
+                        }
                     }
                 }
                 else{

@@ -1,67 +1,110 @@
 @extends('layouts.main')
 
 @section('content')
-@if(empty($idCards))
-<div class="container">
-    <div class="row mt-5">
-        <div class="col-md-12 text-center">
-            @if(Auth::check())
-                <h1 class="mb-4">Welcome Admin</h1>
-            @endif
-            <a href="{{ route('idCard.create') }}" class="btn btn-primary"><i class="fas fa-plus">Add ID Cards</i></a>
-        </div>
-    </div>
-</div>
-@else
-    {{-- @if(session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-    @endif --}}
-    <div class="container mt-5">
-        
-        <div class="d-flex justify-content-between align-items-center">
-            {{-- <h1 class="mb-4">Welcome Admin</h1> --}}
-            <a href="{{ route('idCard.create') }}" class="btn btn-primary mb-4">
-                <i class="fas fa-plus"></i>Add ID Cards
-            </a>
-            
-            <form class="form-inline my-2 my-lg-0" action="{{ route('idCard.index') }}" method="GET">
-                <div class="input-group">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search" value="{{ $search }}">
-                    <div class="input-group-append">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
+
+
+
+<div class="container mt-5">
+    
+    <div class="row">
+        @if(empty($idCards))
+            <div class="container">
+                <div class="row mt-5">
+                    <div class="col-md-12 text-center">
+                        @if(Auth::check())
+                            <h1 class="mb-4">Welcome Admin</h1>
+                        @endif
+                        <a href="{{ route('idCard.create') }}" class="btn btn-primary"><i class="fas fa-plus">Add ID Cards</i></a>
                     </div>
                 </div>
-            </form>
-        </div>
-        
-        {{-- Container --}}
-        <div class="row">
-            @foreach ($idCards as $idCard)
-            <div class="col-md-4 mb-4">
-                <a href="{{route('idCard.show',['idCard'=>$idCard->id])}}" class="card-link">
-                    <div class="card">
-                        <img src="{{ asset('storage/' . $idCard->photo) }}" class="card-img-top img-fluid small-image" alt="User Photo">
-                        <div class="card-body">
-                            <h5 class="card-title text-center">{{ $idCard->full_name }}</h5>
-                            <p class="card-text">
-                                <strong>Email:</strong> {{ $idCard->email }}<br>
-                                <strong>Address:</strong> {{ $idCard->address }}<br>
-                                <strong>Date of Birth:</strong> {{ $idCard->dob }}<br>
-                                <strong>Card Expiry Date:</strong> {{ $idCard->expiry_date }}<br>
-                                <strong>Position:</strong> {{ $idCard->position }}
-                            </p>
-                        </div>
-                    </div>
+            </div>
+        @else
+            <div class="container-fluid  d-flex flex-row justify-content-between bg-light p-2 rounded">
+                <form class="d-flex" role="search" action="{{route('idCard.index')}}" method="GET">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> <button
+                    class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+                {{-- <button class="btn btn-primary">+ Add</button> --}}
+                <a href="{{ route('idCard.create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>Add
                 </a>
             </div>
-            @endforeach
         </div>
-    </div>
-@endif
-
-
-@endsection
-
+        <br>
+        
+        
+        <div class="row gx-5 gy-4">
+            @foreach($idCards as $idCard)
+            
+            <div class="col lg-col-4">
+                <div class="card m-auto position-relative print-me" style="width: 400px">
+                    
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="position-absolute top-0 start-0"><path fill="#0082ca" fill-opacity="1" d="M0,224L1440,32L1440,0L0,0Z"></path></svg>
+                    <div class="company-logo position-absolute-logo end-0 top-0">
+                        <img src="https://nipunasewa.com/wp-content/uploads/2020/01/nipuna-prabidhik-sewa.png" alt=""
+                        class="nipunasewa-logo">
+                    </div>
+                    
+                    <img src="{{asset('storage/' . $idCard->photo)}}"
+                    alt="card-photo" class="small-rounded-image mt-5">
+                    
+                    <a href="{{route('idCard.show',['idCard'=>$idCard->id])}}" style="text-decoration: none;">
+                        <!-- All card text content are here------------------------------------------------------------------------------------->
+                            <div class="card-body text-center mt-0 py-0">
+                                <!-- Card holder name and postion------------------------------------------------------------------------------------->
+                                <h5 class="card-title fs-3 fw-bold">{{$idCard->full_name}}</h5>
+                                <h6 class="card-subtitle mb-2 text-primary">Captain of Strawhat Pirates</h6>
+                                <div class="card-text px-4 mt-4">
+                                    <!-- Card holder other details------------------------------------------------------------------------------------->
+                                    <table class="table table-borderless fw-medium">
+                                        <tr>
+                                            <td class="text-start" style="width: 105px">Email</td>
+                                            <td>:</td>
+                                            <td class="text-start">{{$idCard->email}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">Address</td>
+                                            <td>:</td>
+                                            <td class="text-start">{{$idCard->address}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">DOB</td>
+                                            <td>:</td>
+                                            <td class="text-start">{{$idCard->dob}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">Expiry Date</td>
+                                            <td>:</td>
+                                            <td class="text-start">{{$idCard->expiry_date}}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-start">Position</td>
+                                            <td>:</td>
+                                            <td class="text-start">{{$idCard->position}}</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="position-absolute bottom-0 end-0">
+                                <path fill="#004c74" fill-opacity="1" d="M0,224L1440,32L1440,320L0,320Z"></path>
+                            </svg>
+                            
+                        </div>
+                    </a>
+                    </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        @endif
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+        
+        
+    </body>
+        
+    </html>
+    
+    
+    @endsection
