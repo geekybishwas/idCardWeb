@@ -6,21 +6,20 @@ use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    // return redirect()->route('admin.index');
-    return view('admin.dashboard');
+    return redirect()->route('admin.register.form');
 });
 
 
-Route::resource('/admin',AdminController::class);
+// Route::resource('/admin',AdminController::class);
 
 // Route::resource('/idCard',IdCardController::class);
+Route::get('admin',[AdminController::class,'index'])->name('admin.index');
 
-
-Route::get('/idCard', [IdCardController::class, 'index'])->name('idCard.index'); 
-Route::get('/idCard/create', [IdCardController::class, 'create'])->name('idCard.create'); 
 
 // Admin middleware
 Route::middleware(['auth','role:admin'])->group(function(){
+    Route::get('/idCard', [IdCardController::class, 'index'])->name('idCard.index'); 
+    Route::get('/idCard/create', [IdCardController::class, 'create'])->name('idCard.create'); 
     Route::post('/idCard', [IdCardController::class, 'store'])->name('idCard.store'); 
     Route::get('/idCard/{idCard}', [IdCardController::class, 'show'])->name('idCard.show'); 
     Route::get('/idCard/{idCard}/edit', [IdCardController::class, 'edit'])->name('idCard.edit');

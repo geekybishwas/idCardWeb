@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IdCard;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class AdminController extends Controller
 {
@@ -18,7 +20,8 @@ class AdminController extends Controller
         // $id_card_details=
         // Assgning this two fields empty at first,coz at first there is no idCards and search input
         $search="";
-        $idCards=[];
+        $idCards=IdCard::orderBy('created_at','desc')->get();
+        // $idCards=[];
         return view('admin.dashboard',compact('search','idCards'));
     }
 
@@ -33,10 +36,11 @@ class AdminController extends Controller
         ]);
 
         $admin = User::where('email','=',$request->email)->first();
+        // dd($admin);
         if($admin){
             if(Hash::check($request->password, $admin->password)){
                 if (Auth::attempt($loginFields)) {
-                    return redirect()->intended('/');
+                    return redirect()->route('admin.index');
                 }
             }
             else{
@@ -80,7 +84,7 @@ class AdminController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.dashboard')->with('message','Logged out successfully');
+        return redirect()->route('admin.login.form')->with('message','Logged out successfully');
 
     }   
 

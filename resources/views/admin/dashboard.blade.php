@@ -24,7 +24,7 @@
         <div class="d-flex justify-content-between align-items-center">
             {{-- <h1 class="mb-4">Welcome Admin</h1> --}}
             <a href="{{ route('idCard.create') }}" class="btn btn-primary mb-4">
-                <i class="fas fa-plus"></i>
+                <i class="fas fa-plus"></i>Add ID Cards
             </a>
             
             <form class="form-inline my-2 my-lg-0" action="{{ route('idCard.index') }}" method="GET">
