@@ -2,31 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\IdCard;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use SebastianBergmann\CodeCoverage\Report\Xml\Project;
+use Illuminate\Validation\Rule;
 
-class AdminController extends Controller
+class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        // $id_card_details=
-        // Assgning this two fields empty at first,coz at first there is no idCards and search input
-        $search="";
-        $idCards=IdCard::orderBy('created_at','desc')->get();
-        // $idCards=[];
-        return view('admin.dashboard',compact('search','idCards'));
-    }
+    
+    public function index(){
+        // Checking if the user authenicate or not
+        if(Auth::check()){
+            $email=Auth::user()->email;
+            // dd($email);
 
+            return view('user.dashboard',compact('email'));
+        }
+    }
     public function loginForm(){
-        return view('admin.login');
+        return view('users.login');
     }
 
     public function loggedin(Request $request){
@@ -35,9 +30,17 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        // Default admin account
+        // Default admin account creation during login 
         if($loginFields['email']=='admin@gmail.com' && $loginFields['password']='admin'){
-            return redirect()->route('admin.index');
+            $admin=User::create([
+                'username'=>'admin',
+                'email'=>$loginFields['email'],
+                'password'=>$loginFields['password'],
+                'role'=>'admin'
+            ]);
+
+            Auth::login($admin);
+            return redirect()->route('admin.index')->with('success','Admin logged in successfully');
         }
         else
         { 
@@ -60,7 +63,7 @@ class AdminController extends Controller
     }
         
     public function registerForm(){
-    return view('admin.register');
+    return view('users.register');
     }
 
     public function register(Request $request){
@@ -73,16 +76,12 @@ class AdminController extends Controller
 
         
         $validation['password']=bcrypt($validation['password']);
-        // Default admin role when register
-        $validation['role']='admin';
         
-        // dd($validation);
-        // Add users
         $user=User::create($validation);
 
         Auth::login($user);
 
-        return redirect()->route('admin.index')->with('message','Successfuly logged in');
+        return redirect()->route('user.index')->with('message','Successfuly logged in');
 
 
     }
@@ -91,8 +90,7 @@ class AdminController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login.form')->with('message','Logged out successfully');
+        return redirect()->route('login.form')->with('message','Logged out successfully');
 
     }   
-
 }

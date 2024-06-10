@@ -32,14 +32,14 @@
     <ul class="navbar-nav ml-auto">
       @if(!Auth::check())
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('admin.login.form') }}">Login</a>
+          <a class="nav-link" href="{{ route('login.form') }}">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ route('admin.register.form') }}">Signup</a>
+          <a class="nav-link" href="{{ route('register.form') }}">Signup</a>
         </li>
       @else
         <li class="nav-item">
-          <form action="{{route('admin.logout')}}" method="POST">
+          <form action="{{route('logout')}}" method="POST">
             @csrf
             <button type="submit">Logout</button>
           </form>

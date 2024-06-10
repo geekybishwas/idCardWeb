@@ -19,7 +19,7 @@
     <div class="center-wrapper">
         <div class="form-container">
             <h2 class="text-center mb-4">Login</h2>
-            <form method="POST" action="{{route('admin.loggedin')}}">
+            <form method="POST" action="{{route('loggedin')}}">
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -37,7 +37,7 @@
                 </div>
                 <div class="text-center mt-3">
                     <label for="">Don't have an account?</label>
-                    <a href="{{route('admin.register.form')}}">Register here</a>
+                    <a href="{{route('register.form')}}">Register here</a>
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
             </form>
