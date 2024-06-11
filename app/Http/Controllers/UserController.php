@@ -46,30 +46,17 @@ class UserController extends Controller
             'email' => ['required','email'],
             'password' => 'required',
         ]);
-        $adminEmail='admin@gmail.com';
-        $adminPassword='admin';
 
         // Check if the admin user alredy inthe db or not
-        $admin=User::where('email',$adminEmail)->first();
-        
-        // dd($adminEmail);
-        // If the admin user does not exist ,Default admin account creation during login 
-        if(!$admin && $loginFields['email']==$adminEmail && $loginFields['password']=$adminPassword){
-            $admin=User::create([
-                'username'=>'admin',
-                'email'=>$adminEmail,
-                'password'=>Hash::make($adminPassword),
-                'role'=>'admin'
-            ]);
+        $user=User::where('email',$loginFields['email'])->first();
 
-            Auth::login($admin);
-
+        if($user->email==$loginFields['email'] && Hash::check($request->password,$user->password))
+        {
+            Auth::login($user);
             return redirect()->route('admin.index')->with('success','Admin logged in successfully');
         }
         else
         { 
-            $user = User::where('email','=',$request->email)->first();
-            // dd($admin);
             if($user){
                 if(Hash::check($request->password, $user->password)){
                     if (Auth::attempt($loginFields)) {
