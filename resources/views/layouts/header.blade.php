@@ -54,7 +54,7 @@
         }
 
         .absolute-button {
-            top:210px;
+            top:160px;
             left:30%;
         }
         .form-error{

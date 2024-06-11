@@ -143,7 +143,7 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login.form')->with('message','Logged out successfully');
+        return redirect()->route('login.form');
 
     }
     public function emailVerify($token){
