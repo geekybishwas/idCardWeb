@@ -56,15 +56,15 @@ class UserController extends Controller
         // Check if the admin user alredy inthe db or not
         $user=User::where('email',$loginFields['email'])->first();
 
-        dd($user);
-
-        if($user->email==$loginFields['email'] && Hash::check($request->password,$user->password))
+        // Checking the login is by admin or not
+        if($user->role=='admin' && Hash::check($request->password,$user->password))
         {
             Auth::login($user);
             return redirect()->route('admin.index')->with('success','Admin logged in successfully');
         }
         else
         { 
+            // dd('user');
             if($user){
                 // Checking the user verified email or not 
                 if($user->email_verified_at){
@@ -84,6 +84,7 @@ class UserController extends Controller
                 }
                 // If not sent the email verification link
                 else{
+                    
                     try {
                         Mail::to($user->email)->send(new Verification(($user)));
                         // Email sent successfully
@@ -91,6 +92,7 @@ class UserController extends Controller
                         // Log or handle the error
                         logger()->error('Error sending email: ' . $e->getMessage());
                     }
+                    return view('users.success')->with('msg','Registration successful! Please check your email for the verification link.');
 
                 }
             }
