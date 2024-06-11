@@ -31,6 +31,10 @@
                         <input type="text" class="form-control" id="full_name" name="full_name" value="{{old('full_name',$idCard->full_name ?? '')}}">
                     </div>
                     <div class="form-group">
+                        <label for="college_name">College</label>
+                        <input type="text" class="form-control" id="college_name" name="college_name" value="{{old('college_name',$idCard->college_name ?? '')}}">
+                    </div>
+                    <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{old('email',$idCard->email ?? '')}}">
                     </div>

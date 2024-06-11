@@ -49,13 +49,12 @@
                     alt="card-photo" class="small-rounded-image mt-5">
                     
                     <a href="{{route('idCard.show',['idCard'=>$idCard->id])}}" style="text-decoration: none;">
-                        <!-- All card text content are here------------------------------------------------------------------------------------->
                             <div class="card-body text-center mt-0 py-0">
-                                <!-- Card holder name and postion------------------------------------------------------------------------------------->
+                                
                                 <h5 class="card-title fs-3 fw-bold">{{$idCard->full_name}}</h5>
-                                <h6 class="card-subtitle mb-2 text-primary">Captain of Strawhat Pirates</h6>
+                                <h6 class="card-subtitle mb-2 text-primary">{{$idCard->college_name}}</h6>
                                 <div class="card-text px-4 mt-4">
-                                    <!-- Card holder other details------------------------------------------------------------------------------------->
+                                    
                                     <table class="table table-borderless fw-medium">
                                         <tr>
                                             <td class="text-start" style="width: 105px">Email</td>

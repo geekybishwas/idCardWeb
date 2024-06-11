@@ -25,7 +25,7 @@ class PdfController extends Controller
         $pdf = PDF::loadView('IdCard.print', compact('idCard'))->setOptions(['font_path' => $fontPath]);
 
 
-        return $pdf->download($idCard->name . '.pdf');
+        return $pdf->download($idCard->full_name . '.pdf');
 
     }
 }
