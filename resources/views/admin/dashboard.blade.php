@@ -5,20 +5,7 @@
 
 
 <div class="container mt-5">
-    
     <div class="row">
-        @if(empty($idCards))
-            <div class="container">
-                <div class="row mt-5">
-                    <div class="col-md-12 text-center">
-                        @if(Auth::check())
-                            <h1 class="mb-4">Welcome Admin</h1>
-                        @endif
-                        <a href="{{ route('idCard.create') }}" class="btn btn-primary"><i class="fas fa-plus">Add ID Cards</i></a>
-                    </div>
-                </div>
-            </div>
-        @else
             <div class="container-fluid  d-flex flex-row justify-content-between bg-light p-2 rounded">
                 <form class="d-flex" role="search" action="{{route('idCard.index')}}" method="GET">
                     <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='search'> <button
@@ -29,14 +16,12 @@
                     <i class="fas fa-plus"></i>Add
                 </a>
             </div>
-        </div>
-        <br>
-        
-        
-        <div class="row gx-5 gy-4">
-            @foreach($idCards as $idCard)
-            
-            <div class="col lg-col-4">
+    </div>
+    <br>
+                
+    <div class="row gx-5 gy-4">
+    @foreach($idCards as $idCard)  
+        <div class="col lg-col-4">
                 <div class="card m-auto position-relative print-me" style="width: 400px">
                     
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" class="position-absolute top-0 start-0"><path fill="#0082ca" fill-opacity="1" d="M0,224L1440,32L1440,0L0,0Z"></path></svg>
@@ -95,15 +80,6 @@
                 </div>
             </div>
         </div>
-        @endif
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-        
-        
-    </body>
-        
-    </html>
-    
+    </div>
     
     @endsection

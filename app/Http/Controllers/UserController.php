@@ -56,11 +56,16 @@ class UserController extends Controller
         // Check if the admin user alredy inthe db or not
         $user=User::where('email',$loginFields['email'])->first();
 
-        // Checking the login is by admin or not
-        if($user->role=='admin' && Hash::check($request->password,$user->password))
-        {
-            Auth::login($user);
-            return redirect()->route('admin.index')->with('success','Admin logged in successfully');
+        if($user){
+            // Checking the login is by admin or not
+            if($user->role=='admin' && Hash::check($request->password,$user->password))
+            {
+                Auth::login($user);
+                return redirect()->route('admin.index')->with('success','Admin logged in successfully');
+            }
+            else{
+                return back()->with('message','Email and password does\'t match');
+            }
         }
         else
         { 
@@ -79,7 +84,7 @@ class UserController extends Controller
                         }
                     }
                     else{
-                        return back()->with('wrongPw',"Wrong user password... Try again.");
+                        return back()->with('message',"Wrong user password... Try again.");
                     }
                 }
                 // If not sent the email verification link
@@ -92,12 +97,12 @@ class UserController extends Controller
                         // Log or handle the error
                         logger()->error('Error sending email: ' . $e->getMessage());
                     }
-                    return view('users.success')->with('msg','Registration successful! Please check your email for the verification link.');
+                    return view('users.success')->with('message','Registration successful! Please check your email for the verification link.');
 
                 }
             }
             else{
-                return back()->with('noUser','No such account exists. Signup first...');
+                return back()->with('message','No user exists with this email');
             }
         }
     }
@@ -130,7 +135,7 @@ class UserController extends Controller
             logger()->error('Error sending email: ' . $e->getMessage());
         }
 
-        return view('users.success')->with('msg','Registration successful! Please check your email for the verification link.');
+        return view('users.success')->with('message','Registration successful! Please check your email for the verification link.');
 
     }
 

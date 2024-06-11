@@ -30,15 +30,4 @@ class IdCard extends Model
         $this->attributes['full_name'] = ucwords(strtolower($value));
     }
 
-    // Accessor allows us to modify an attribute value when it is accessed
-    public function getDobAttribute($value){
-        return date('d-M-Y',strtotime($value));
-    }
-
-    public function getExpiryDateAttribute($value)
-    {
-        return date('d-M-Y', strtotime($value));
-    }
-
-
 }

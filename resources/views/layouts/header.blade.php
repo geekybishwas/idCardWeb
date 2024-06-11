@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ID Card</title>
+    <title>Id Card Web</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -56,6 +56,9 @@
         .absolute-button {
             top:210px;
             left:30%;
+        }
+        .form-error{
+            color:red;
         }
     </style>
 </head>

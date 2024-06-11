@@ -35,6 +35,9 @@
                         <span class="form-error">{{$message}} </span>
                     @enderror
                 </div>
+                @if(@session('message'))
+                    <span class="form-error">{{session('message')}} </span>
+                @endsession
                 <div class="text-center mt-3">
                     <label for="">Don't have an account?</label>
                     <a href="{{route('register.form')}}">Register here</a>

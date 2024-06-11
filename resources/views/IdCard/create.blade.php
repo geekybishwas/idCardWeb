@@ -25,30 +25,51 @@
                             <img src="{{ asset('storage/' . $idCard->photo) }}" class="img-thumbnail" style="width:120px">
                         @endif --}}
                         <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" value="{{old('photo',$idCard->photo ?? '')}}">
+                        @error('photo')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="full_name">Full Name</label>
                         <input type="text" class="form-control" id="full_name" name="full_name" value="{{old('full_name',$idCard->full_name ?? '')}}">
+                        @error('full_name')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="college_name">College</label>
                         <input type="text" class="form-control" id="college_name" name="college_name" value="{{old('college_name',$idCard->college_name ?? '')}}">
+                        @error('college_name')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" class="form-control" id="email" name="email" value="{{old('email',$idCard->email ?? '')}}">
+                        @error('email')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="address">Address</label>
                         <input type="text" class="form-control" id="address" name="address" value="{{old('address',$idCard->address ?? '')}}">
+                        @error('address')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="dob">Date of Birth</label>
                         <input type="date" class="form-control" id="dob" name="dob" value="{{old('dob',$idCard->dob ?? '')}}">
+                        @error('dob')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="expiry_date">Card Expiry Date</label>
                         <input type="date" class="form-control" id="expiry_date" name="expiry_date" value="{{old('expiry_date',$idCard->expiry_date ?? '')}}">
+                        @error('expiry_date')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <div class="form-group">
                         <label for="role">Position</label>
@@ -58,6 +79,9 @@
                             <option value="Staff">Staff</option>
                             <option value="Faculty">Faculty</option>
                         </select>
+                        @error('position')
+                            <span class="form-error">{{$message}} </span>
+                        @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">{{$idCard->exists?'Update':'Create'}}</button>
                 </form>
