@@ -11,31 +11,35 @@
 
 ## Introduction
 
-Brief description of your project.
+The web application is developed using Laravel 11 and provides a platform for users to print ID cards dynamically. It includes an admin panel with options for uploading photos, entering details such as name, address, date of birth (DOB), card expiry date, and other necessary information for an ID card. The application is designed to be fully dynamic and user-friendly, catering to the printing needs of users without the ability to create new ID cards. User authentication is also implemented for security purposes.
+
 
 ## Installation
 
 **Clone the repository:**
 
-   The ```git clone``` command copies an existing Git repository to your local machine. This command downloads all the files, branches, and commit history of the repository.
+The ```git clone``` command copies an existing Git repository to your local machine. This command downloads all the files, branches, and commit history of the repository.
     ```bash
-    git clone git@github.com:geekybishwas/idCardWeb.git
-    cd idCardWeb
+        git clone git@github.com:geekybishwas/idCardWeb.git
+        cd idCardWeb
     ``` 
 ## Storage link 
-    The storage link command creates a symbolic link from public/storage to storage/app/public. This allows you to access the files stored in the storage/app/public directory through the public/storage URL
+
+The storage link command creates a symbolic link from public/storage to storage/app/public. This allows you to access the files stored in the storage/app/public directory through the public/storage URL
     ```bash 
     php artisan storage:link
     ```
 ## Default admin account
-    To create a default admin account, run the following command:
+
+To create a default admin account, run the following command:
 
     ```bash
         php artisan db:seed --class=AdminSeeder
     ````
-    Or
-    ```
+Or to run all seeder , run the following command:
+    ```bash
         php artisan db:seed --seed
     ```
+
 
 
