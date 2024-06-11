@@ -4,7 +4,7 @@
     <title>IdCard Print</title>
 </head>
 <body>
-    <img src="{{asset('storage/' . $idCard->photo)}}"
+    <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/' . $idCard->photo))) }}"
     alt="" class="small-rounded-image mt-5">
 
 
