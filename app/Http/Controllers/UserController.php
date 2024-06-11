@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IdCard;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -18,7 +19,22 @@ class UserController extends Controller
             $email=Auth::user()->email;
             // dd($email);
 
-            return view('users.index',compact('email'));
+            // Cheking if the idcard exists from that email or not
+            $users=IdCard::all();
+
+            $idCardExist=false;
+
+            foreach($users as $user){
+                if($user->email==$email){
+                    $idCardExist=true;
+                    break;
+                }
+            }
+
+            $idCard=IdCard::where('email',$email)->first();
+
+            // dd($idCard);
+            return view('users.index',compact('idCard','idCardExist'));
         }
     }
     public function loginForm(){

@@ -1,38 +1,47 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <style>
-        .id-card {
-            border: 1px solid #000;
-            padding: 20px;
-            width: 300px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-        .id-card img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-    </style>
+    <title>IdCard Print</title>
 </head>
 <body>
-    <div class="container mt-5">
-    <div class="card m-1">
-        <img src="data:image/png;base64,{{ base64_encode(file_get_contents(public_path('storage/' . $idCard->photo))) }}" class="card-img-top small-image" alt="User Photo" style="max-width: 100px;">
-        <div class="card-body text-center">
-            <h5 class="card-title">{{ $idCard->full_name }}</h5>
-            <p class="card-text">
-                <strong>Email:</strong> {{ $idCard->email }}<br>
-                <strong>Address:</strong> {{ $idCard->address }}<br>
-                <strong>Date of Birth:</strong> {{ $idCard->dob }}<br>
-                <strong>Card Expiry Date:</strong> {{ $idCard->expiry_date }}<br>
-                <strong>Position:</strong> {{ $idCard->position }}
-            </p>
-        </div>
+    <img src="{{asset('storage/' . $idCard->photo)}}"
+    alt="" class="small-rounded-image mt-5">
+
+
+<div class="card-body text-center mt-0 py-0">
+    
+    <h5 class="card-title fs-3 fw-bold">{{ $idCard->full_name }}</h5>
+    <h6 class="card-subtitle mb-2 text-primary">Captain of Strawhat Pirates</h6>
+    <div class="card-text px-4 mt-4">
+        <table class="table table-borderless fw-medium">
+            <tr>
+                <td class="text-start" style="width: 105px">Email</td>
+                <td>:</td>
+                <td class="text-start">{{ $idCard->email }}</td>
+            </tr>
+            <tr>
+                <td class="text-start">Address</td>
+                <td>:</td>
+                <td class="text-start">{{ $idCard->address }}</td>
+            </tr>
+            <tr>
+                <td class="text-start">DOB</td>
+                <td>:</td>
+                <td class="text-start">{{ $idCard->dob }}</td>
+            </tr>
+            <tr>
+                <td class="text-start">Expiry</td>
+                <td>:</td>
+                <td class="text-start">{{ $idCard->expiry_date }}</td>
+            </tr>
+            <tr>
+                <td class="text-start">Position</td>
+                <td>:</td>
+                <td class="text-start">{{ $idCard->position }}</td>
+            </tr>
+        </table>
     </div>
-    </div>
+</div>
 </body>
 </html>
+

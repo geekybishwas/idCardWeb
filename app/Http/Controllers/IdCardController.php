@@ -18,6 +18,8 @@ class IdCardController extends Controller
         // dd($request->all());
         // Using null operator
         $search=$request->input('search') ?? "";
+
+        // dd($search);
         
         // If search is found it will get the search idCards
         if($search!=""){
@@ -60,6 +62,7 @@ class IdCardController extends Controller
         // return $request->all();
         $data=$request->validate([
             'full_name'=>'required|string',
+            'college_name'=>'required|string',
             'email'=>'required|string|email|unique:card_details,email',
             'address'=>'required|string',
             'dob'=>'required|date',
@@ -123,6 +126,7 @@ class IdCardController extends Controller
         
         $data=$request->validate([
             'full_name'=>'required|string',
+            'college_name'=>'required|string',
             'email'=>'required|string|email',
             'address'=>'required|string',
             'dob'=>'required|date',

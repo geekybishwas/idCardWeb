@@ -26,8 +26,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/idCard/{idCard}/edit', [IdCardController::class, 'edit'])->name('idCard.edit');
     Route::put('/idCard/{idCard}', [IdCardController::class, 'update'])->name('idCard.update'); 
     Route::delete('/idCard/{idCard}', [IdCardController::class, 'destroy'])->name('idCard.destroy'); 
-    Route::get('/generate-pdf/{id}',[PdfController::class,'generatePdf'])->name('print.pdf');
 });
+Route::get('/generate-pdf/{id}',[PdfController::class,'generatePdf'])->name('print.pdf');
 
 
 // User Login ,Register

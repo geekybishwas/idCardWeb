@@ -21,7 +21,7 @@
         @else
             <div class="container-fluid  d-flex flex-row justify-content-between bg-light p-2 rounded">
                 <form class="d-flex" role="search" action="{{route('idCard.index')}}" method="GET">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"> <button
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" name='search'> <button
                     class="btn btn-outline-success" type="submit">Search</button>
                 </form>
                 {{-- <button class="btn btn-primary">+ Add</button> --}}
@@ -73,7 +73,7 @@
                                             <td class="text-start">{{$idCard->dob}}</td>
                                         </tr>
                                         <tr>
-                                            <td class="text-start">Expiry Date</td>
+                                            <td class="text-start">Expiry</td>
                                             <td>:</td>
                                             <td class="text-start">{{$idCard->expiry_date}}</td>
                                         </tr>
