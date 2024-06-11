@@ -99,7 +99,7 @@ class IdCardController extends Controller
         IdCard::create($data);
         // dd($data);
 
-        return redirect()->route('idCard.index')->with('success','IdCard Added');
+        return redirect()->route('admin.index')->with('success','IdCard Added');
     }
 
     /**
@@ -152,14 +152,14 @@ class IdCardController extends Controller
                 
                 $idCard->update($data);
                 
-                return redirect()->route('idCard.index')->with('success','IdCard updated succesfully');
+                return redirect()->route('admin.index')->with('success','IdCard updated succesfully');
             }
             else{
-                return redirect()->route('idCard.index')->with('error','No File uploaded');
+                return redirect()->route('admin.index')->with('error','No File uploaded');
             }
         }
         catch(ModelNotFoundException $e){
-            return redirect()->route('idCard.index')->with('error','IdCard not found.');
+            return redirect()->route('admin.index')->with('error','IdCard not found.');
         }
         
     }
@@ -170,6 +170,6 @@ class IdCardController extends Controller
     public function destroy(IdCard $idCard)
     {
         $idCard->delete();
-        return redirect()->route('idCard.index');
+        return redirect()->route('admin.index');
     }
 }

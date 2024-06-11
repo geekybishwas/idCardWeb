@@ -2,13 +2,19 @@
 
 namespace App\Http\Controllers;
 
+
+use App\Mail\Verification;
 use App\Models\IdCard;
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Config;
+
+use Illuminate\Support\Facades\Mail;
+
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -50,6 +56,8 @@ class UserController extends Controller
         // Check if the admin user alredy inthe db or not
         $user=User::where('email',$loginFields['email'])->first();
 
+        dd($user);
+
         if($user->email==$loginFields['email'] && Hash::check($request->password,$user->password))
         {
             Auth::login($user);
@@ -58,18 +66,32 @@ class UserController extends Controller
         else
         { 
             if($user){
-                if(Hash::check($request->password, $user->password)){
-                    if (Auth::attempt($loginFields)) {
-                        if($user->role=='admin'){
-                            return redirect()->route('admin.index');
-                        }
-                        else{
-                            return redirect()->route('user.index');
+                // Checking the user verified email or not 
+                if($user->email_verified_at){
+                    if(Hash::check($request->password, $user->password)){
+                        if (Auth::attempt($loginFields)) {
+                            if($user->role=='admin'){
+                                return redirect()->route('admin.index');
+                            }
+                            else{
+                                return redirect()->route('user.index');
+                            }
                         }
                     }
+                    else{
+                        return back()->with('wrongPw',"Wrong user password... Try again.");
+                    }
                 }
+                // If not sent the email verification link
                 else{
-                    return back()->with('wrongPw',"Wrong user password... Try again.");
+                    try {
+                        Mail::to($user->email)->send(new Verification(($user)));
+                        // Email sent successfully
+                    } catch (\Exception $e) {
+                        // Log or handle the error
+                        logger()->error('Error sending email: ' . $e->getMessage());
+                    }
+
                 }
             }
             else{
@@ -91,14 +113,22 @@ class UserController extends Controller
         ]);
 
         
-        $validation['password']=bcrypt($validation['password']);
+        $validation['password']=Hash::make($validation['password']);
+        $validation['token']=Str::random(64);
         
         $user=User::create($validation);
 
-        Auth::login($user);
+        // dd($user);
 
-        return redirect()->route('user.index')->with('message','Successfuly logged in');
+        try {
+            Mail::to($validation['email'])->send(new Verification(($user)));
+            // Email sent successfully
+        } catch (\Exception $e) {
+            // Log or handle the error
+            logger()->error('Error sending email: ' . $e->getMessage());
+        }
 
+        return view('users.success')->with('msg','Registration successful! Please check your email for the verification link.');
 
     }
 
@@ -107,6 +137,22 @@ class UserController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('login.form')->with('message','Logged out successfully');
+
+    }
+    public function emailVerify($token){
+        // dd($token);
+        $user=User::where('token',$token)->first();
+        // dd($user);
+        if ($user) {
+            // Update the user when email verified 
+            $user->email_verified_at = now();
+            $user->save();
+        }
+
+        // dd($user);
+        Auth::login($user);
+        return redirect()->route('user.index')->with('message',"Successfully loggedin");
+
 
     }   
 }
