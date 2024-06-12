@@ -100,5 +100,4 @@
 </div>
 @include('layouts.footer')
 </body>
-
 </html>

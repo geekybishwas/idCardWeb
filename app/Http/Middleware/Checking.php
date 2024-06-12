@@ -19,7 +19,9 @@ class Checking
         // dd($role);
         if(!Auth::check() || Auth::user()->role!==$role){
             abort(403,'Unauthorized action');
+            // return redirect()->route('login.form');
         }
+        // dd($request);
         return $next($request);
     }
 }

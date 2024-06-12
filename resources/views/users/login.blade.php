@@ -18,6 +18,11 @@
 <body>
     <div class="center-wrapper">
         <div class="form-container">
+            @if(session('error'))
+            <div class="alert alert-info text-center" style="color:red;">
+                    Login to proceed
+                </div>
+            @endif
             <h2 class="text-center mb-4">Login</h2>
             <form method="POST" action="{{route('loggedin')}}">
                 @csrf
@@ -47,4 +52,14 @@
         </div>
     </div>
 </body>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const alertMessage = document.querySelector('.alert-info');
+    if (alertMessage) {
+        setTimeout(function() {
+            alertMessage.style.display = 'none';
+        }, 3000);
+    }
+});
+</script>
 </html>

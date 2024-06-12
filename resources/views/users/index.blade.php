@@ -64,12 +64,11 @@
     </div>
 @else
     <div class="container pt-3 mt-5 card-contianer">
-        <div class="card m-auto position-relative print-me" style="width: 400px">
+        {{-- <div class="card m-auto position-relative print-me" style="width: 400px"> --}}
             <div class="card-body text-center mt-0 py-0">
-                <h1 class="card-title fs-3 fw-bold">No ID Card</h1>
-        {{-- <h1>No id card exist</h1> --}}
+                <h1>Your id card isn't created by admin,Sorry.....</h1>
             </div>
-        </div>
+        {{-- </div> --}}
     </div>
 @endif
 

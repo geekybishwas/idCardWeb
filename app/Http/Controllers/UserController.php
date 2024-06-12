@@ -42,6 +42,9 @@ class UserController extends Controller
             // dd($idCard);
             return view('users.index',compact('idCard','idCardExist'));
         }
+        else{
+            return back()->with('error','Login to proceed');
+        }
     }
     public function loginForm(){
         return view('users.login');
@@ -56,16 +59,14 @@ class UserController extends Controller
         // Check if the admin user alredy inthe db or not
         $user=User::where('email',$loginFields['email'])->first();
 
-        if($user){
-            // Checking the login is by admin or not
-            if($user->role=='admin' && Hash::check($request->password,$user->password))
-            {
-                Auth::login($user);
-                return redirect()->route('admin.index')->with('success','Admin logged in successfully');
-            }
-            else{
-                return back()->with('message','Email and password does\'t match');
-            }
+        // dd($user);
+
+        
+        // Checking the login is by admin or not
+        if($user && $user->role=='admin' && Hash::check($request->password,$user->password))
+        {
+            Auth::login($user);
+            return redirect()->route('admin.index')->with('success','Admin logged in successfully');
         }
         else
         { 
@@ -84,7 +85,7 @@ class UserController extends Controller
                         }
                     }
                     else{
-                        return back()->with('message',"Wrong user password... Try again.");
+                        return back()->with('message',"Wrong password... Try again.");
                     }
                 }
                 // If not sent the email verification link
@@ -143,7 +144,7 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('login.form');
+        return redirect()->route('login');
 
     }
     public function emailVerify($token){

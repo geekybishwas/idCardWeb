@@ -20,7 +20,7 @@
                     <p class="mb-0">If you haven't received the email, please check your spam/junk folder.</p>
                 </div>
                 <div class="text-center">
-                    <a href="{{ route('login.form') }}" class="btn btn-primary ">Back</a>
+                    <a href="{{ route('login') }}" class="btn btn-primary ">Back</a>
                 </div>
             </div>
         </div>

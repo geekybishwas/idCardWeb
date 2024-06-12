@@ -17,21 +17,27 @@ class IdCardController extends Controller
     {
         // dd($request->all());
         // Using null operator
-        $search=$request->input('search') ?? "";
+        if(Auth::check()){
 
-        // dd($search);
-        
-        // If search is found it will get the search idCards
-        if($search!=""){
-            $idCards=IdCard::where('full_name','LIKE',"$search%")->get();
+            $search=$request->input('search') ?? "";
+            
             // dd($search);
+            
+            // If search is found it will get the search idCards
+            if($search!=""){
+                $idCards=IdCard::where('full_name','LIKE',"$search%")->get();
+                // dd($search);
+            }
+            else
+            {
+                // Accessing the id card details in desc order by created_at
+                $idCards=IdCard::orderBy('created_at','desc')->get();
+            }
+            return view('admin.dashboard',compact('idCards','search'));
         }
-        else
-        {
-            // Accessing the id card details in desc order by created_at
-            $idCards=IdCard::orderBy('created_at','desc')->get();
+        else{
+            return back();
         }
-        return view('admin.dashboard',compact('idCards','search'));
     }
 
     /**
@@ -48,7 +54,7 @@ class IdCardController extends Controller
             return view('IdCard.create',compact('idCard'));
         }
         else{
-            return redirect()->route('admin.register.form');
+            return redirect()->route('register.form');
         }
     }
 
@@ -132,7 +138,7 @@ class IdCardController extends Controller
             'dob'=>'required|date',
             'expiry_date'=>'required|date',
             'position'=>'required|string',
-            'photo'=>'required|image|mimes:jpeg,png,jpg|max:800000'
+            'photo'=>$request->isMethod('put') ? 'nullable|image|mimes:jpeg,png,jpg|max:800000' : 'required|image|mimes:jpeg,png,jpg|max:800000',
         ]);
 
         try{
@@ -169,7 +175,13 @@ class IdCardController extends Controller
      */
     public function destroy(IdCard $idCard)
     {
-        $idCard->delete();
-        return redirect()->route('admin.index');
+        try{
+            $idCard=IdCard::findOrFail($idCard->id);
+            $idCard->delete();
+            return redirect()->route('admin.index');
+        }
+        catch (ModelNotFoundException $e) {
+            return redirect()->route('admin.index')->with('error', 'IdCard not found.');
+        }
     }
 }

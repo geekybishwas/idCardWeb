@@ -21,14 +21,16 @@
                     @endif
                     <div class="form-group">
                         <label for="photo">Upload Photo</label>
-                        {{-- @if($idCard->exists)
-                            <img src="{{ asset('storage/' . $idCard->photo) }}" class="img-thumbnail" style="width:120px">
-                        @endif --}}
-                        <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" value="{{old('photo',$idCard->photo ?? '')}}">
+                        @if($idCard->exists && $idCard->photo)
+                            <img id="previewImage" src="{{ asset('storage/' . $idCard->photo) }}" class="img-thumbnail" style="width:60px">
+                            <input type="file" class="form-control-file mt-2" id="photo" name="photo" accept="image/*" onchange="previewFile()">
+                        @else
+                            <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" onchange="previewFile()">
+                        @endif
                         @error('photo')
-                            <span class="form-error">{{$message}} </span>
+                            <span class="form-error">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div>                   
                     <div class="form-group">
                         <label for="full_name">Full Name</label>
                         <input type="text" class="form-control" id="full_name" name="full_name" value="{{old('full_name',$idCard->full_name ?? '')}}">
@@ -75,14 +77,14 @@
                         <label for="role">Position</label>
                         <select class="form-control" id="position" name="position">
                             <option value="">Select Position</option>
-                            <option value="Student">Student</option>
-                            <option value="Staff">Staff</option>
-                            <option value="Faculty">Faculty</option>
+                            <option value="Student" {{ old('position') == 'Student' || $idCard->position == 'Student' ? 'selected' : '' }}>Student</option>
+                            <option value="Staff" {{ old('position') == 'Staff' || $idCard->position == 'Staff' ? 'selected' : '' }}>Staff</option>
+                            <option value="Faculty" {{ old('position') == 'Faculty' || $idCard->position == 'Faculty' ? 'selected' : '' }}>Faculty</option>
                         </select>
                         @error('position')
-                            <span class="form-error">{{$message}} </span>
+                            <span class="form-error">{{ $message }}</span>
                         @enderror
-                    </div>
+                    </div>                    
                     <button type="submit" class="btn btn-primary">{{$idCard->exists?'Update':'Create'}}</button>
                 </form>
             </div>

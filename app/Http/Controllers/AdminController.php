@@ -17,13 +17,19 @@ class AdminController extends Controller
      */
     public function index()
     {
-        // $id_card_details=
-        // Assgning this two fields empty at first,coz at first there is no idCards and search input
-        $search="";
-        $idCards=IdCard::orderBy('created_at','desc')->get();
-        // $idCards=[];
-        // dd('as:' . $idCards);
-        return view('admin.dashboard',compact('search','idCards'));
+        if(Auth::check()){
+
+            // $id_card_details=
+            // Assgning this two fields empty at first,coz at first there is no idCards and search input
+            $search="";
+            $idCards=IdCard::orderBy('created_at','desc')->get();
+            // $idCards=[];
+            // dd('as:' . $idCards);
+            return view('admin.dashboard',compact('search','idCards'));
+        }
+        else{
+            return back()->with('message','Login to proceed');
+        }
     }  
 
 }
