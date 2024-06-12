@@ -38,8 +38,10 @@ Route::get('/register',[UserController::class,'registerForm'])->name('register.f
 Route::post('/register',[UserController::class,'register'])->name('register');
 Route::post('/logout',[UserController::class,'logout'])->name('logout');
 
-//User 
-Route::get('user/dashboard',[UserController::class,'index'])->name('user.index');
+//User
+Route::middleware(['auth','role:user'])->group(function(){
+    Route::get('user/dashboard',[UserController::class,'index'])->name('user.index');
+});
 
 // Verification
 Route::get('/verifyRegister/{token}', [UserController::class, 'emailVerify'])->name('email.verify');
