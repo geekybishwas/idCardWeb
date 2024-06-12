@@ -56,56 +56,41 @@ class UserController extends Controller
             'password' => 'required',
         ]);
 
-        // Check if the admin user alredy inthe db or not
-        $user=User::where('email',$loginFields['email'])->first();
+        // Check if the admin user alredy in the db or not
+        $user = User::where('email', $loginFields['email'])->first();
 
-        // dd($user);
-
-        
-        // Checking the login is by admin or not
-        if($user && $user->role=='admin' && Hash::check($request->password,$user->password))
-        {
-            Auth::login($user);
-            return redirect()->route('admin.index')->with('success','Admin logged in successfully');
-        }
-        else
-        { 
-            // dd('user');
-            if($user){
-                // Checking the user verified email or not 
-                if($user->email_verified_at){
-                    if(Hash::check($request->password, $user->password)){
-                        if (Auth::attempt($loginFields)) {
-                            if($user->role=='admin'){
-                                return redirect()->route('admin.index');
-                            }
-                            else{
-                                return redirect()->route('user.index');
-                            }
-                        }
+        // Check if the user exists and the password matches
+        if ($user && Hash::check($request->password, $user->password)) {
+            // If the user is an admin
+            if ($user->role == 'admin') {
+                Auth::login($user);
+                return redirect()->route('admin.index')->with('success', 'Admin logged in successfully');
+            } else {
+                // If the user is not an admin
+                // Check if the email is verified
+                if ($user->email_verified_at) {
+                    // Attempt login
+                    if (Auth::attempt($loginFields)) {
+                        return redirect()->route('user.index');
                     }
-                    else{
-                        return back()->with('message',"Wrong password... Try again.");
-                    }
-                }
-                // If not sent the email verification link
-                else{
-                    
+                } else {
+                    // Send verification email
                     try {
-                        Mail::to($user->email)->send(new Verification(($user)));
+                        Mail::to($user->email)->send(new Verification($user));
                         // Email sent successfully
+                        return view('users.success')->with('message', 'Registration successful! Please check your email for the verification link.');
                     } catch (\Exception $e) {
                         // Log or handle the error
                         logger()->error('Error sending email: ' . $e->getMessage());
+                        return back()->with('error', 'Failed to send verification email. Please try again later.');
                     }
-                    return view('users.success')->with('message','Registration successful! Please check your email for the verification link.');
-
                 }
             }
-            else{
-                return back()->with('message','No user exists with this email');
-            }
+        } else {
+            // If password doesn't match
+            return back()->with('message', "Wrong email or password... Try again.");
         }
+
     }
         
     public function registerForm(){
