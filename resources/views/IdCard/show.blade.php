@@ -65,7 +65,10 @@
                     @method('DELETE')
                     <button class="btn btn-danger fs-5 px-4 mx-1" type="submit" ><i class='bx bx-trash'></i> Delete</button>
                 </form>
-                <a href="{{route('print.pdf',['id'=>$idCard->id])}}" class="btn btn-success fs-5 px-4 mx-1" ><i class='bx bx-printer'></i> Print</a>
+                <form action="{{route('print.pdf',['id'=>$idCard->id])}}">
+                    <button type="submit" class="btn btn-success fs-5 px-4 mx-1"><i class='bx bx-printer'></i> Print</button>
+                </form>
+                {{-- <a href="{{route('print.pdf',['id'=>$idCard->id])}}" class="btn btn-success fs-5 px-4 mx-1" ><i class='bx bx-printer'></i> Print</a> --}}
             </div>
         </div>
     </div>
