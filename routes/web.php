@@ -28,7 +28,7 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::delete('/idCard/{idCard}', [IdCardController::class, 'destroy'])->name('idCard.destroy'); 
 });
 
-Route::get('/generate-pdf/{id}',[PdfController::class,'generatePdf'])->name('print.pdf');
+// Route::get('/generate-pdf/{id}',[PdfController::class,'generatePdf'])->name('print.pdf');
 
 
 // User Login ,Register
