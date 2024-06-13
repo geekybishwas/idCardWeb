@@ -59,7 +59,8 @@
 
         </div>
         <div class="container mt-5 text-center ">
-            <a href="{{route('print.pdf',['id'=>$idCard->id])}}" class="btn btn-success fs-5 px-4"><i class='bx bx-printer'></i> Print</a>
+            {{-- <a href="{{route('print.pdf',['id'=>$idCard->id])}}" class="btn btn-success fs-5 px-4"><i class='bx bx-printer'></i> Print</a> --}}
+            <button type="submit" class="btn btn-success fs-5 px-4 mx-1" onclick="printCard()"><i class='bx bx-printer'></i> Print</button>
         </div>
     </div>
 @else
