@@ -61,6 +61,34 @@
             color:red;
         }
 
+        .footer-container{
+            position:absoute;
+            bottom:0;
+            width: 100vw !important;
+            /* background-color: red; */
+            background-color:white;
+
+        }
+
+        body{
+            min-height: 100vh !important;
+            position: relative;
+            /* padding-bottom: 250px; */
+            /* background:red; */
+        }
+        .logo{
+            font-size:2.4rem;
+        }
+
+        .nav-title{
+            font-size:1.2rem;
+            align-self: center;
+            padding-top:6px;
+            margin-left:15px;
+
+            /* color:red; */
+        }
+
         @media print {
             @page {
                 margin: 0;
@@ -76,9 +104,15 @@
 
             
             .card {
-                transform: scale(2);
+                transform: scale(1.9);
                 margin-top: 38% !important;
                 border: 1px solid rgb(200, 200, 200) !important;
+            }
+            .footer-container{
+                display:none;
+            }
+            .navbar{
+                display: none; 
             }
 
 

@@ -72,7 +72,7 @@ class IdCardController extends Controller
             'email'=>'required|string|email|unique:card_details,email',
             'address'=>'required|string',
             'dob'=>'required|date',
-            'expiry_date'=>'required|date',
+            'expiry_date'=>'required|date|after:today',
             'position'=>'required|string',
             'photo'=>'required|image|mimes:jpeg,png,jpg|max:800000'
         ]);
@@ -136,7 +136,7 @@ class IdCardController extends Controller
             'email'=>'required|string|email',
             'address'=>'required|string',
             'dob'=>'required|date',
-            'expiry_date'=>'required|date',
+            'expiry_date'=>'required|date|after:today',
             'position'=>'required|string',
             'photo'=>$request->isMethod('put') ? 'nullable|image|mimes:jpeg,png,jpg|max:800000' : 'required|image|mimes:jpeg,png,jpg|max:800000',
         ]);

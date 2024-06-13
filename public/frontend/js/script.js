@@ -17,3 +17,4 @@ function previewFile() {
         preview.src = "";
     }
 }
+  

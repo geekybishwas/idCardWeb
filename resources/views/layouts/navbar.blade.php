@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container">
+  <div class="container align-item-center">
       <a class="navbar-brand" href="#"><img src="{{ asset('storage/logo/nipuna-prabidhik-sewa.png') }}"
            alt="" style="width: 100px;"></a>
+      <h1 class="nav-title">DashBoard</h1>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText"
           aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
